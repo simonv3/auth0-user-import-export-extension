@@ -9,7 +9,10 @@ function extractData(fileData) {
     csvtojson()
       .fromString(fileData)
       .on('error',() => resolve(fileData))
-      .on('json', user => users.push(user))
+      .on('json', user => {
+        user.email_verified = false;
+        users.push(user)
+      })
       .on('done', () => resolve(JSON.stringify(users)));
   });
 }
@@ -62,6 +65,7 @@ export function importUsers(files, connectionId) {
       fileReader.addEventListener('load', (event) => {
         extractData(event.currentTarget.result)
           .then((users) => {
+            console.log('users', users);
             formData.users = users;
 
             const data = new FormData();
@@ -177,6 +181,7 @@ export function removeFile(fileList, index) {
  * Handle dropping of files
  */
 export function handleFileDrop(currentFiles, newFiles) {
+  console.log('file dropped');
   const errors = [];
   const files = currentFiles.concat(newFiles);
   for (let i = 0; i < newFiles.length; i++) {

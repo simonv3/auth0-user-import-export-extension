@@ -1,6 +1,6 @@
 {
-  "name": "auth0-user-import-export-extension",
-  "version": "2.2.1",
+  "name": "dsa-auth0-user-import-export-extension",
+  "version": "2.3.0",
   "description": "An extension that allows you to import and export users to your Auth0 account",
   "main": "server.js",
   "auth0-extension": {
@@ -158,7 +158,7 @@
     "auth0",
     "extension"
   ],
-  "author": "",
+  "author": "simon",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/auth0/auth0-user-import-export-extension/issues"
