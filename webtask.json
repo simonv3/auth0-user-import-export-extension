@@ -4,12 +4,12 @@
   "version": "2.3.0",
   "author": "simon",
   "useHashName": false,
-  "description": "This extension allows you to import/export users from/to your account.",
+  "description": "This DSA extension allows you to import/export users from/to your account.",
   "type": "application",
   "logoUrl": "https://cdn.rawgit.com/auth0/auth0-user-import-export-extension/master/assets/logo.svg",
   "initialUrlPath": "/login",
-  "docsUrl": "https://auth0.com/docs/extensions/user-import-export",
-  "repository": "https://github.com/auth0/auth0-user-import-export-extension",
+  "docsUrl": "https://github.com/simonv3/auth0-user-import-export-extension/blob/master/README.md",
+  "repository": "https://github.com/simonv3/auth0-user-import-export-extension/",
   "keywords": [
     "auth0",
     "extension"

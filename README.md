@@ -2,6 +2,8 @@
 
 This extension makes it possible to import and export users from Auth0, using JSON or CSV (complex or a list of e-mails).
 
+This is a fork of the [Auth0 Extension](https://auth0.com/docs/extensions/user-import-export) with some things to sweeten the deal.
+
 ## Running
 
 ### Local Development
