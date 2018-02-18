@@ -4,7 +4,6 @@ const webpack = require('webpack');
 module.exports = {
   devtool: 'cheap-module-source-map',
   stats: false,
-  progress: true,
 
   // The application and the vendor libraries.
   entry: {
@@ -42,29 +41,29 @@ module.exports = {
   // Module configuration.
   resolve: {
     alias: {
-      React: require('react')
+      React: 'react'
     },
-    modulesDirectories: [
-      'node_modules'
+    modules: [
+      "node_modules"
     ],
-    extensions: [ '', '.json', '.js', '.jsx' ]
+    extensions: [ '.json', '.js', '.jsx' ]
   },
 
   // Load all modules.
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         exclude: path.join(__dirname, '../../node_modules/')
       },
       {
         test: /\.(png|ttf|svg|jpg|gif)/,
-        loader: 'url?limit=8192'
+        loader: 'url-loader?limit=8192'
       },
       {
         test: /\.(woff|woff2|eot)/,
-        loader: 'url?limit=100000'
+        loader: 'url-loader?limit=100000'
       }
     ]
   },
@@ -80,20 +79,23 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development')
       }
+    }),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        // Postcss configuration.
+        postcss: () => {
+          return [
+            require('postcss-simple-vars')(),
+            require('postcss-focus')(),
+            require('autoprefixer')({
+              browsers: [ 'last 2 versions', 'IE > 8' ]
+            }),
+            require('postcss-reporter')({
+              clearMessages: true
+            })
+          ];
+        }
+      }
     })
   ],
-
-  // Postcss configuration.
-  postcss: () => {
-    return [
-      require('postcss-simple-vars')(),
-      require('postcss-focus')(),
-      require('autoprefixer')({
-        browsers: [ 'last 2 versions', 'IE > 8' ]
-      }),
-      require('postcss-reporter')({
-        clearMessages: true
-      })
-    ];
-  }
 };

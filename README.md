@@ -35,3 +35,12 @@ After that `ngrok` will expose the extension (Auth0 needs to reach out to the ex
 ```
 npm run build
 ```
+
+To debug the deployment process you'll need:
+
+```
+npm install -g auth0-extensions-cli
+npm install -g wt-cli
+npm install -g wt-gallery-cli
+npm install -g cross-env
+```

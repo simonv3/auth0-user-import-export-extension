@@ -6,7 +6,7 @@
   "useHashName": false,
   "description": "This DSA extension allows you to import/export users from/to your account.",
   "type": "application",
-  "logoUrl": "https://cdn.rawgit.com/auth0/auth0-user-import-export-extension/master/assets/logo.svg",
+  "logoUrl": "https://cdn.rawgit.com/simonv3/auth0-user-import-export-extension/master/assets/logo.svg",
   "initialUrlPath": "/login",
   "docsUrl": "https://github.com/simonv3/auth0-user-import-export-extension/blob/master/README.md",
   "repository": "https://github.com/simonv3/auth0-user-import-export-extension/",

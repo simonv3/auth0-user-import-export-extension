@@ -3,52 +3,42 @@
 const webpack = require('webpack');
 const StatsWriterPlugin = require('webpack-stats-plugin').StatsWriterPlugin;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const project = require('../../package.json');
 const config = require('./webpack.config.base.js');
 config.profile = false;
 
 // Build output, which includes the hash.
-config.output.hash = true;
+// config.output.hash = true;
 config.output.filename = 'auth0-user-import-export.ui.' + project.version + '.js';
 
 // Development modules.
-config.module.loaders.push({
+config.module.rules.push({
   test: /\.css$/,
-  loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')
+  loader: ExtractTextPlugin.extract({
+    'fallback': 'style-loader',
+    'use': 'css-loader!postcss-loader'
+  })
 });
 
 // Webpack plugins.
 config.plugins = config.plugins.concat([
-  new webpack.optimize.OccurenceOrderPlugin(true),
-  new webpack.optimize.DedupePlugin(),
 
   // Extract CSS to a different file, will require additional configuration.
-  new ExtractTextPlugin('auth0-user-import-export.ui.' + project.version + '.css', {
+  new ExtractTextPlugin({
+    'filename': 'auth0-user-import-export.ui.' + project.version + '.css',
     allChunks: true
   }),
 
   // Separate the vender in a different file.
-  new webpack.optimize.CommonsChunkPlugin('vendors', 'auth0-user-import-export.ui.vendors.' + project.version + '.js'),
+  new webpack.optimize.CommonsChunkPlugin({
+    'name': 'vendors',
+    'filename': 'auth0-user-import-export.ui.vendors.' + project.version + '.js'
+  }),
 
   // Compress and uglify the output.
-  new webpack.optimize.UglifyJsPlugin({
-    mangle: true,
-    output: {
-      comments: false
-    },
-    compress: {
-      sequences: true,
-      dead_code: true,
-      conditionals: true,
-      booleans: true,
-      unused: true,
-      if_return: true,
-      join_vars: true,
-      drop_console: true,
-      warnings: false
-    }
-  }),
+  new UglifyJsPlugin(),
 
   // Alternative to StatsWriterPlugin.
   new StatsWriterPlugin({
